@@ -17,7 +17,7 @@ kamaiFile = {}
 kamaiFile['meta'] = {
     "game": "sdvx",
     "playtype": "Single",
-    "service": "Asphyxia Import"
+    "service": "Asphyxia"
     }
 kamaiScores = []
 musicIDs = []
