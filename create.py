@@ -1,5 +1,6 @@
 import json
 import xml.etree.ElementTree as ET
+import time
 
 # Getting lines of data
 database = open("sdvx@asphyxia.db", "r")
@@ -48,7 +49,7 @@ for dataline in datalines:
     if "collection" not in entry:
         break
 
-    if entry['collection'] == "music" and entry['__refid'] == selectedProfile['__refid']:
+    if entry['collection'] == "music" and entry['__refid'] == selectedProfile['__refid'] and entry['clear'] != 0:
         scores.append(entry)
 
 # Cleaning duplicates from scores
@@ -68,15 +69,15 @@ for score in scoresCleaned:
     diff = ""
 
     match score['clear']:
-        case 0:
-            lamp = "FAILED"
         case 1:
-            lamp = "CLEAR"
+            lamp = "FAILED"
         case 2:
-            lamp = "EXCESSIVE CLEAR"
+            lamp = "CLEAR"
         case 3:
-            lamp = "ULTIMATE CHAIN"
+            lamp = "EXCESSIVE CLEAR"
         case 4:
+            lamp = "ULTIMATE CHAIN"
+        case 5:
             lamp = "PERFECT ULTIMATE CHAIN"
 
     match score['type']:
@@ -90,13 +91,13 @@ for score in scoresCleaned:
             for song in musicIDs:
                 if song['id'] == str(score['mid']):
                     match song['inf_ver']:
-                        case 2:
+                        case "2":
                             diff = "INF"
-                        case 3:
+                        case "3":
                             diff = "GRV"
-                        case 4:
+                        case "4":
                             diff = "HVN"
-                        case 5:
+                        case "5":
                             diff = "VVD"
                     break
         case 4:
@@ -116,7 +117,8 @@ for score in scoresCleaned:
 kamaiFile['scores'] = kamaiScores
 
 # Saving the final file
-with open("batchimport.json", "w") as file:
+with open("batch-manual.json", "w") as file:
     json.dump(kamaiFile, file)
 
 print("File created!")
+time.sleep(3)
