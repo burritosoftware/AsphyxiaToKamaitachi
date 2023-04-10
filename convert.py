@@ -106,7 +106,7 @@ for score in scoresCleaned:
     kamaiScore = {
     "score": score['score'],
     "lamp": lamp,
-    "matchType": "inGameID",
+    "matchType": "sdvxInGameID",
     "identifier": str(score['mid']),
     "difficulty": diff,
     "timeAchieved": score['updatedAt']['$$date']
